@@ -1,0 +1,30 @@
+name: CI Pipeline (Tests)
+
+# Wann soll die Pipeline starten?
+on:
+  push:
+    branches:
+      - 'feature/**' # Startet bei jedem Feature-Branch (z.B. feature/US-1)
+      - 'chore/**'   # Startet bei Setup-Branches
+
+jobs:
+  test:
+    name: Run Unit Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Holt den Code aus eurem Repository
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # 2. Installiert Java auf dem GitHub-Server
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: 'maven'
+
+      # 3. Führt die Maven-Tests aus
+      - name: Run Maven Tests
+        run: mvn test

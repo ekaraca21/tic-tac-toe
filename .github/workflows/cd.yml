@@ -1,0 +1,36 @@
+name: CD Pipeline (JAR Upload)
+
+# Wann soll die Pipeline starten?
+on:
+  push:
+    branches:
+      - 'main' # Startet NUR, wenn etwas in den main-Branch gemerged wird!
+
+jobs:
+  build:
+    name: Build and Upload JAR
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Holt den Code
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # 2. Installiert Java
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: 'maven'
+
+      # 3. Baut die ausführbare .jar Datei
+      - name: Build JAR with Maven
+        run: mvn clean package
+
+      # 4. Lädt die .jar Datei als "Artifact" auf GitHub hoch
+      - name: Upload JAR Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: tic-tac-toe-app
+          path: target/*.jar
