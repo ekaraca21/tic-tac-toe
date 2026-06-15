@@ -48,4 +48,9 @@ public class Board {
 
         System.out.println("-------------");
     }
+
+    public char getSymbol(int row, int col) {
+        return board[row][col];
+    }
+
 }
