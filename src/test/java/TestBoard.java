@@ -43,4 +43,32 @@ class TestBoard {
         assertFalse(board.makeMove(0, 3, 'O'), "Spalten größer als 2 müssen abgelehnt werden.");
         assertFalse(board.makeMove(3, 3, 'X'), "Zeilen und Spalten größer als 2 müssen abgelehnt werden.");
     }
+
+    @Test
+    void testInitialBoardIstLeer() {
+        Board board = new Board();
+        // prüfen, ob alle Felder am Anfang leer sind
+        for (int row = 0; row < 3; row++) {
+            for (int col = 0; col < 3; col++) {
+                assertEquals(' ', board.getSymbol(row, col),
+                        "Feld (" + row + "," + col + ") sollte leer sein.");
+            }
+        }
+    }
+
+    @Test
+    void testSpielstandAktualisiertSichNachZug() {
+        Board board = new Board();
+
+        // Erster Zug
+        board.makeMove(0, 0, 'X');
+        assertEquals('X', board.getSymbol(0, 0), "Feld (0,0) sollte ein 'X' enthalten.");
+
+        // Zweiter Zug
+        board.makeMove(1, 1, 'O');
+        assertEquals('O', board.getSymbol(1, 1), "Feld (1,1) sollte ein 'O' enthalten.");
+
+        // prüfen, ob das 'X' aus dem ersten Zug immer noch da ist
+        assertEquals('X', board.getSymbol(0, 0), "Das 'X' sollte nach dem zweiten Zug immer noch sichtbar sein.");
+    }
 }
