@@ -1,5 +1,7 @@
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+import java.util.Scanner;
+
 
 class TestBoard {
 
@@ -71,4 +73,5 @@ class TestBoard {
         // prüfen, ob das 'X' aus dem ersten Zug immer noch da ist
         assertEquals('X', board.getSymbol(0, 0), "Das 'X' sollte nach dem zweiten Zug immer noch sichtbar sein.");
     }
+
 }

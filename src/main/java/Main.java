@@ -1,10 +1,3 @@
-<<<<<<< HEAD
-public class Main {
-
-    public static void main(String[] args) {
-        TicTacToe game = new TicTacToe();
-        game.start();
-=======
 import java.util.Scanner;
 
 public class Main {
@@ -13,6 +6,8 @@ public class Main {
 
         Board board = new Board();
         Scanner scanner = new Scanner(System.in);
+        TicTacToe game = new TicTacToe();
+        game.start();
 
         char currentPlayer = 'X';
 
@@ -51,6 +46,5 @@ public class Main {
                 scanner.next();
             }
         }
->>>>>>> main
     }
 }

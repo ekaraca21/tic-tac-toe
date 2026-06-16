@@ -19,26 +19,23 @@ public class TicTacToe {
 
         while(true) {
             System.out.println("Current Player: " + currentPlayer.getMarker());
-            board.print();
+            board.printBoard();
 
             int row = getInput(scanner, "row (0-2): ");
             int col = getInput(scanner, "column (0-2): ");
 
-            if(!board.isCellEmpty(row, col)) {
-                System.out.println("Ungültiger Zug!");
+            if(!board.makeMove(row, col, currentPlayer.getMarker())) {
                 continue;
             }
 
-            board.place(row, col, currentPlayer.getMarker());
-
             if(hasWinner()) {
-                board.print();
+                board.printBoard();
                 System.out.println("Spieler " + currentPlayer.getMarker() + " hat gewonnen!");
                 break;
             }
 
             if(board.isFull()) {
-                board.print();
+                board.printBoard();
                 System.out.println("Unentschieden!");
                 break;
             }
@@ -59,12 +56,12 @@ public class TicTacToe {
         char m = currentPlayer.getMarker();
 
         for(int i = 0; i < 3; i++) {
-            if(board.getCell(i, 0) == m && board.getCell(i, 1) == m && board.getCell(i, 2) == m) return true;
-            if(board.getCell(0, i) == m && board.getCell(1, i) == m && board.getCell(2, i) == m) return true;
+            if(board.getSymbol(i, 0) == m && board.getSymbol(i, 1) == m && board.getSymbol(i, 2) == m) return true;
+            if(board.getSymbol(0, i) == m && board.getSymbol(1, i) == m && board.getSymbol(2, i) == m) return true;
         }
 
-        if(board.getCell(0, 0) == m && board.getCell(1, 1) == m && board.getCell(2, 2) == m) return true;
-        if(board.getCell(0, 2) == m && board.getCell(1, 1) == m && board.getCell(2, 0) == m) return true;
+        if(board.getSymbol(0, 0) == m && board.getSymbol(1, 1) == m && board.getSymbol(2, 2) == m) return true;
+        if(board.getSymbol(0, 2) == m && board.getSymbol(1, 1) == m && board.getSymbol(2, 0) == m) return true;
 
         return false;
     }
