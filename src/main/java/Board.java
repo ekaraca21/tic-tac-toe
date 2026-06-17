@@ -1,5 +1,4 @@
 public class Board {
-
     private char[][] board = new char[3][3];
 
     public Board() {
@@ -53,4 +52,14 @@ public class Board {
         return board[row][col];
     }
 
+    public boolean isFull() {
+        for(int row = 0; row < 3; row++) {
+            for(int col = 0; col < 3; col++) {
+                if(board[row][col] == ' ') {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 }

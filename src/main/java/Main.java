@@ -6,6 +6,8 @@ public class Main {
 
         Board board = new Board();
         Scanner scanner = new Scanner(System.in);
+        TicTacToe game = new TicTacToe();
+        game.start();
 
         char currentPlayer = 'X';
 
