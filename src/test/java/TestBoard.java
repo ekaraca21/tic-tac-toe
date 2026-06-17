@@ -8,7 +8,7 @@ class TestBoard {
     void testGueltigerZug() {
         Board board = new Board();
 
-        // prüfen, ob Spieler das Feld auswählen kann & X/O erscheint
+        // prüfen, ob ein Spieler ein leeres Feld auswählen kann.
         boolean successfulMove = board.makeMove(1, 1, 'X');
 
         // prüfen, ob die Methode 'true' (Erfolg) zurückgibt
@@ -22,7 +22,7 @@ class TestBoard {
     void testFeldMussLeerSein() {
         Board board = new Board();
 
-        // 'X' auf Feld (0,0) setzen
+        // prüfen, ob ein Symbol auf einem leeren Feld gespeichert werden kann.
         board.makeMove(0, 0, 'X');
 
         //  prüfen, ob ungültige Züge abgelehnt werden
@@ -39,15 +39,20 @@ class TestBoard {
     void testUngueltigeZuegeAusserhalb() {
         Board board = new Board();
 
-        // prüfen, ungültige Züge werden abgelehnt
+        // prüfen, ob negative Zeilen abgelehnt werden.
         assertFalse(board.makeMove(-1, 0, 'X'), "Negative Zeilen müssen abgelehnt werden.");
+
+        // prüfen, ob Spalten größer als 2 abgelehnt werden.
         assertFalse(board.makeMove(0, 3, 'O'), "Spalten größer als 2 müssen abgelehnt werden.");
+
+        // prüfen, ob Zeilen und Spalten größer als 2 abgelehnt werden.
         assertFalse(board.makeMove(3, 3, 'X'), "Zeilen und Spalten größer als 2 müssen abgelehnt werden.");
     }
 
     @Test
     void testInitialBoardIstLeer() {
         Board board = new Board();
+
         // prüfen, ob alle Felder am Anfang leer sind
         for (int row = 0; row < 3; row++) {
             for (int col = 0; col < 3; col++) {
@@ -77,6 +82,7 @@ class TestBoard {
     void testGewinnerInReihe() {
         Board board = new Board();
 
+        // prüfen, ob drei gleiche Symbole in einer horizontalen Reihe als Sieg erkannt werden.
         board.makeMove(0, 0, 'X');
         board.makeMove(0, 1, 'X');
         board.makeMove(0, 2, 'X');
@@ -88,6 +94,7 @@ class TestBoard {
     void testGewinnerInSpalte() {
         Board board = new Board();
 
+        // prüfen, ob drei gleiche Symbole in einer vertikalen Spalte als Sieg erkannt werden.
         board.makeMove(0, 1, 'O');
         board.makeMove(1, 1, 'O');
         board.makeMove(2, 1, 'O');
@@ -99,6 +106,7 @@ class TestBoard {
     void testGewinnerDiagonal() {
         Board board = new Board();
 
+        // prüfen, ob drei gleiche Symbole in einer Diagonale als Sieg erkannt werden.
         board.makeMove(0, 0, 'X');
         board.makeMove(1, 1, 'X');
         board.makeMove(2, 2, 'X');
@@ -110,6 +118,7 @@ class TestBoard {
     void testKeinGewinner() {
         Board board = new Board();
 
+        // prüfen, ob kein Gewinner erkannt wird, wenn keine drei gleichen Symbole verbunden sind.
         board.makeMove(0, 0, 'X');
         board.makeMove(0, 1, 'O');
         board.makeMove(0, 2, 'X');
@@ -122,6 +131,7 @@ class TestBoard {
     void testUnentschiedenWennBoardVollUndKeinGewinner() {
         Board board = new Board();
 
+        // prüfen, ob ein volles Spielfeld ohne Gewinner als Unentschieden erkannt werden kann.
         board.makeMove(0, 0, 'X');
         board.makeMove(0, 1, 'O');
         board.makeMove(0, 2, 'X');

@@ -52,20 +52,6 @@ public class TicTacToe {
         }
     }
 
-    private boolean hasWinner() {
-        char m = currentPlayer.getMarker();
-
-        for(int i = 0; i < 3; i++) {
-            if(board.getSymbol(i, 0) == m && board.getSymbol(i, 1) == m && board.getSymbol(i, 2) == m) return true;
-            if(board.getSymbol(0, i) == m && board.getSymbol(1, i) == m && board.getSymbol(2, i) == m) return true;
-        }
-
-        if(board.getSymbol(0, 0) == m && board.getSymbol(1, 1) == m && board.getSymbol(2, 2) == m) return true;
-        if(board.getSymbol(0, 2) == m && board.getSymbol(1, 1) == m && board.getSymbol(2, 0) == m) return true;
-
-        return false;
-    }
-
     private int getInput(Scanner scanner, String prompt) {
         while(true) {
             System.out.print(prompt);
@@ -76,5 +62,27 @@ public class TicTacToe {
                 scanner.next();
             }
         }
+    }
+
+    private boolean hasWinner() {
+        char m = currentPlayer.getMarker();
+
+        for(int i = 0; i < 3; i++) {
+            // prüfen, ob der aktuelle Spieler eine vollständige horizontale Reihe hat.
+            if(board.getSymbol(i, 0) == m && board.getSymbol(i, 1) == m && board.getSymbol(i, 2) == m) return true;
+
+            // prüfen, ob der aktuelle Spieler eine vollständige vertikale Spalte hat.
+            if(board.getSymbol(0, i) == m && board.getSymbol(1, i) == m && board.getSymbol(2, i) == m) return true;
+        }
+
+
+        // prüfen, ob der aktuelle Spieler die Diagonale von links oben nach rechts unten hat.
+        if(board.getSymbol(0, 0) == m && board.getSymbol(1, 1) == m && board.getSymbol(2, 2) == m) return true;
+
+        // prüfen, ob der aktuelle Spieler die Diagonale von rechts oben nach links unten hat.
+        if(board.getSymbol(0, 2) == m && board.getSymbol(1, 1) == m && board.getSymbol(2, 0) == m) return true;
+
+        // prüfen, ob kein Gewinn gefunden wurde.
+        return false;
     }
 }
