@@ -19,23 +19,36 @@ public class TicTacToe {
 
         while(true) {
             System.out.println("Current Player: " + currentPlayer.getMarker());
-            board.printBoard();
+            board.print();
 
             int row = getInput(scanner, "row (0-2): ");
             int col = getInput(scanner, "column (0-2): ");
 
-            if(!board.makeMove(row, col, currentPlayer.getMarker())) {
+            // prüfen, ob der Zug innerhalb des Spielfelds liegt.
+            if(row < 0 || row > 2 || col < 0 || col > 2) {
+                System.out.println("Ungültiger Zug");
                 continue;
             }
 
+            // prüfen, ob das ausgewählte Feld leer ist.
+            if(!board.isCellEmpty(row, col)) {
+                System.out.println("Ungültiger Zug");
+                continue;
+            }
+
+            // prüfen, ob das Symbol des aktuellen Spielers platziert wird.
+            board.place(row, col, currentPlayer.getMarker());
+
+            // prüfen, ob der aktuelle Spieler nach dem Zug gewonnen hat.
             if(hasWinner()) {
-                board.printBoard();
+                board.print();
                 System.out.println("Spieler " + currentPlayer.getMarker() + " hat gewonnen!");
                 break;
             }
 
+            // prüfen, ob das Spielfeld voll ist und das Spiel unentschieden endet.
             if(board.isFull()) {
-                board.printBoard();
+                board.print();
                 System.out.println("Unentschieden!");
                 break;
             }
@@ -85,4 +98,6 @@ public class TicTacToe {
         // prüfen, ob kein Gewinn gefunden wurde.
         return false;
     }
+
+
 }

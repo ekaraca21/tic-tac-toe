@@ -3,8 +3,11 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
-
-        Board board = new Board();
+        TicTacToe game = new TicTacToe();
+        game.start();
+    }
+}
+     /**   Board board = new Board();
         Scanner scanner = new Scanner(System.in);
         TicTacToe game = new TicTacToe();
         game.start();
@@ -47,4 +50,4 @@ public class Main {
             }
         }
     }
-}
+}*/
