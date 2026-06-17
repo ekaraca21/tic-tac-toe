@@ -1,6 +1,5 @@
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
-import java.util.Scanner;
 
 
 class TestBoard {
@@ -62,16 +61,83 @@ class TestBoard {
     void testSpielstandAktualisiertSichNachZug() {
         Board board = new Board();
 
-        // Erster Zug
+        // prüfen, ob der erste Zug im Spielfeld gespeichert wird.
         board.makeMove(0, 0, 'X');
         assertEquals('X', board.getSymbol(0, 0), "Feld (0,0) sollte ein 'X' enthalten.");
 
-        // Zweiter Zug
+        // prüfen, ob der zweite Zug im Spielfeld gespeichert wird.
         board.makeMove(1, 1, 'O');
         assertEquals('O', board.getSymbol(1, 1), "Feld (1,1) sollte ein 'O' enthalten.");
 
-        // prüfen, ob das 'X' aus dem ersten Zug immer noch da ist
+        // prüfen, ob der erste Zug nach dem zweiten Zug weiterhin vorhanden ist.
         assertEquals('X', board.getSymbol(0, 0), "Das 'X' sollte nach dem zweiten Zug immer noch sichtbar sein.");
     }
 
+    @Test
+    void testGewinnerInReihe() {
+        Board board = new Board();
+
+        board.makeMove(0, 0, 'X');
+        board.makeMove(0, 1, 'X');
+        board.makeMove(0, 2, 'X');
+
+        assertTrue(board.hasWinner('X'));
+    }
+
+    @Test
+    void testGewinnerInSpalte() {
+        Board board = new Board();
+
+        board.makeMove(0, 1, 'O');
+        board.makeMove(1, 1, 'O');
+        board.makeMove(2, 1, 'O');
+
+        assertTrue(board.hasWinner('O'));
+    }
+
+    @Test
+    void testGewinnerDiagonal() {
+        Board board = new Board();
+
+        board.makeMove(0, 0, 'X');
+        board.makeMove(1, 1, 'X');
+        board.makeMove(2, 2, 'X');
+
+        assertTrue(board.hasWinner('X'));
+    }
+
+    @Test
+    void testKeinGewinner() {
+        Board board = new Board();
+
+        board.makeMove(0, 0, 'X');
+        board.makeMove(0, 1, 'O');
+        board.makeMove(0, 2, 'X');
+
+        assertFalse(board.hasWinner('X'));
+        assertFalse(board.hasWinner('O'));
+    }
+
+    @Test
+    void testUnentschiedenWennBoardVollUndKeinGewinner() {
+        Board board = new Board();
+
+        board.makeMove(0, 0, 'X');
+        board.makeMove(0, 1, 'O');
+        board.makeMove(0, 2, 'X');
+
+        board.makeMove(1, 0, 'X');
+        board.makeMove(1, 1, 'O');
+        board.makeMove(1, 2, 'O');
+
+        board.makeMove(2, 0, 'O');
+        board.makeMove(2, 1, 'X');
+        board.makeMove(2, 2, 'X');
+
+        assertTrue(board.isFull());
+        assertFalse(board.hasWinner('X'));
+        assertFalse(board.hasWinner('O'));
+    }
 }
+
+
