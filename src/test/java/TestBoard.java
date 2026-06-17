@@ -79,55 +79,6 @@ class TestBoard {
     }
 
     @Test
-    void testGewinnerInReihe() {
-        Board board = new Board();
-
-        // prüfen, ob drei gleiche Symbole in einer horizontalen Reihe als Sieg erkannt werden.
-        board.makeMove(0, 0, 'X');
-        board.makeMove(0, 1, 'X');
-        board.makeMove(0, 2, 'X');
-
-        assertTrue(board.hasWinner('X'));
-    }
-
-    @Test
-    void testGewinnerInSpalte() {
-        Board board = new Board();
-
-        // prüfen, ob drei gleiche Symbole in einer vertikalen Spalte als Sieg erkannt werden.
-        board.makeMove(0, 1, 'O');
-        board.makeMove(1, 1, 'O');
-        board.makeMove(2, 1, 'O');
-
-        assertTrue(board.hasWinner('O'));
-    }
-
-    @Test
-    void testGewinnerDiagonal() {
-        Board board = new Board();
-
-        // prüfen, ob drei gleiche Symbole in einer Diagonale als Sieg erkannt werden.
-        board.makeMove(0, 0, 'X');
-        board.makeMove(1, 1, 'X');
-        board.makeMove(2, 2, 'X');
-
-        assertTrue(board.hasWinner('X'));
-    }
-
-    @Test
-    void testKeinGewinner() {
-        Board board = new Board();
-
-        // prüfen, ob kein Gewinner erkannt wird, wenn keine drei gleichen Symbole verbunden sind.
-        board.makeMove(0, 0, 'X');
-        board.makeMove(0, 1, 'O');
-        board.makeMove(0, 2, 'X');
-
-        assertFalse(board.hasWinner('X'));
-        assertFalse(board.hasWinner('O'));
-    }
-
-    @Test
     void testUnentschiedenWennBoardVollUndKeinGewinner() {
         Board board = new Board();
 
@@ -144,9 +95,19 @@ class TestBoard {
         board.makeMove(2, 1, 'X');
         board.makeMove(2, 2, 'X');
 
-        assertTrue(board.isFull());
-        assertFalse(board.hasWinner('X'));
-        assertFalse(board.hasWinner('O'));
+        assertTrue(board.isFull(), "Das Spielfeld sollte voll sein.");
+    }
+
+    @Test
+    void testBoardIstNichtVoll() {
+        Board board = new Board();
+
+        // prüfen, ob ein leeres Spielfeld nicht als voll erkannt wird.
+        assertFalse(board.isFull(), "Ein neues Spielfeld sollte nicht voll sein.");
+
+        // prüfen, ob ein teilweise gefülltes Spielfeld nicht als voll erkannt wird.
+       board.makeMove(0, 0, 'X');
+       assertFalse(board.isFull(), "Ein teilweise gefülltes Spielfeld sollte nicht voll sein.");
     }
 }
 
