@@ -106,5 +106,31 @@ public class TestBoard {
 
         assertEquals(' ', board.getSymbol(0, 0), "Das Feld sollte nach clear leer sein.");
         assertEquals(' ', board.getSymbol(1, 1), "Das Feld sollte nach clear leer sein.");
+   }
+
+   @Test
+    void testPrintZeigtSpielfeldAn() {
+        Board board = new Board();
+
+        // prüfen, ob gesetzte Symbole im Spielfeld sichtbar sind.
+        board.place(0, 0, 'X');
+        board.place(1, 1, 'O');
+
+        ByteArrayOutputStream testOutput = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(testOutput));
+
+        // prüfen, ob das Spielfeld in der Konsole ausgegeben wird.
+        board.print();
+
+        String output = testOutput.toString();
+
+        // prüfen, ob das X in der Ausgabe sichtbar ist.
+        assertTrue(output.contains("| X "), "Das X sollte in der Ausgabe sichtbar sein.");
+
+        // prüfen, ob das O in der Ausgabe sichtbar ist.
+        assertTrue(output.contains("| O "), "Das O sollte in der Ausgabe sichtbar sein.");
+
+        // prüfen, ob die Spielfeldbegrenzung angezeigt wird.
+        assertTrue(output.contains("-------------"), "Die Spielfeldbegrenzung sollte sichtbar sein.");
     }
 }

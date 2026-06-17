@@ -101,4 +101,23 @@ public class TestTicTacToe {
         // prüfen, ob ein Zug außerhalb des Spielfelds abgelehnt wird.
         assertTrue(output.contains("Ungültiger Zug"));
     }
+
+    @Test
+    void testBelegtesFeldWirdAbgelehnt() {
+        String input = "0\n0\n0\n0\n1\n0\n0\n1\n1\n1\n0\n2\n";
+
+        ByteArrayInputStream testInput = new ByteArrayInputStream(input.getBytes());
+        ByteArrayOutputStream testOutput = new ByteArrayOutputStream();
+
+        System.setIn(testInput);
+        System.setOut(new PrintStream(testOutput));
+
+        TicTacToe game = new TicTacToe();
+        game.start();
+
+        String output = testOutput.toString();
+
+        // prüfen, ob ein Zug auf ein bereits belegtes Feld abgelehnt wird.
+        assertTrue(output.contains("Ungültiger Zug"));
+    }
 }
