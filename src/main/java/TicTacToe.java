@@ -21,8 +21,11 @@ public class TicTacToe {
             System.out.println("Current Player: " + currentPlayer.getMarker());
             board.print();
 
-            int row = getInput(scanner, "row (0-2): ");
-            int col = getInput(scanner, "column (0-2): ");
+            System.out.print("row (0-2): ");
+            int row = scanner.nextInt();
+
+            System.out.print("column (0-2): ");
+            int col = scanner.nextInt();
 
             // prüfen, ob der Zug innerhalb des Spielfelds liegt.
             if(row < 0 || row > 2 || col < 0 || col > 2) {
@@ -62,18 +65,6 @@ public class TicTacToe {
             currentPlayer = player2;
         } else {
             currentPlayer = player1;
-        }
-    }
-
-    private int getInput(Scanner scanner, String prompt) {
-        while(true) {
-            System.out.print(prompt);
-            if(scanner.hasNextInt()) {
-                return scanner.nextInt();
-            } else {
-                System.out.println("Ungültige Eingabe! Bitte eine Zahl zwischen 0 und 2 eingeben.");
-                scanner.next();
-            }
         }
     }
 
