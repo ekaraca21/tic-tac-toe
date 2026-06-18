@@ -69,6 +69,12 @@ public class TicTacToe {
 
             // Spiel ist beendet – fragen, ob nochmal gespielt wird.
             System.out.print("Nochmal spielen? (j/n): ");
+
+            // keine weitere Eingabe vorhanden -> Spiel beenden (verhindert Absturz).
+            if(!scanner.hasNext()) {
+                break;
+            }
+
             String answer = scanner.next();
 
             if(answer.equalsIgnoreCase("j")) {
